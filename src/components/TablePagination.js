@@ -86,6 +86,7 @@ class TablePagination extends React.Component {
             rowsPerPageOptions={options.rowsPerPageOptions}
             onChangePage={this.handlePageChange}
             onChangeRowsPerPage={this.handleRowChange}
+            ActionsComponent={options.ActionsComponent}
           />
         </MuiTableRow>
       </MuiTableFooter>
