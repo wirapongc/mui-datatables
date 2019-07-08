@@ -73,7 +73,7 @@ class TableHeadCell extends React.Component {
 
   render() {
     const { isSortTooltipOpen, isHintTooltipOpen } = this.state;
-    const { children, classes, options, sortDirection, sort, hint, print } = this.props;
+    const { children, classes, options, align, sortDirection, sort, hint, print } = this.props;
     const sortActive = sortDirection !== null && sortDirection !== undefined ? true : false;
 
     const sortLabelProps = {
@@ -88,6 +88,10 @@ class TableHeadCell extends React.Component {
       'datatables-noprint': !print,
     });
 
+    let headerAlign = align || 'flex-start';
+
+    let flexDirection = align === 'right' ? 'row-reverse' : 'row';
+
     return (
       <TableCell className={cellClass} scope={'col'} sortDirection={sortDirection}>
         {options.sort && sort ? (
@@ -96,9 +100,9 @@ class TableHeadCell extends React.Component {
             placement={'bottom-start'}
             classes={{
               tooltip: classes.tooltip,
+              popper: classes.mypopper,
             }}
             enterDelay={300}
-            classes={{ popper: classes.mypopper }}
             open={isSortTooltipOpen}
             onOpen={() =>
               isHintTooltipOpen
@@ -108,6 +112,7 @@ class TableHeadCell extends React.Component {
             onClose={() => this.setState({ isSortTooltipOpen: false })}>
             <span
               role="button"
+              style={{ justifyContent: headerAlign, flexDirection: flexDirection, alignItems: 'center' }}
               onKeyUp={this.handleClickSort}
               onClick={this.handleSortClick}
               className={classes.toolButton}

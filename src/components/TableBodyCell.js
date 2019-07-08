@@ -48,6 +48,7 @@ class TableBodyCell extends React.Component {
       rowIndex,
       className,
       print,
+      align,
       ...otherProps
     } = this.props;
 
@@ -68,6 +69,7 @@ class TableBodyCell extends React.Component {
       <TableCell
         key={2}
         onClick={this.handleClick}
+        align={align ? align : 'left'}
         className={classNames(
           {
             [classes.root]: true,
