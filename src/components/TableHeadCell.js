@@ -145,19 +145,19 @@ class TableHeadCell extends React.Component {
             </span>
           </Tooltip>
         ) : (
-            <span
-                role="button"
-                style={{ justifyContent: headerAlign, flexDirection: flexDirection, alignItems: 'center' }}
-                className={classes.toolButton}
-                tabIndex={0}>
-              <div
-                  className={classNames({
-                    [classes.data]: true,
-                    [classes.sortActive]: sortActive,
-                  })}>
-                {children}
-              </div>
-            </span>
+          <span
+            role="button"
+            style={{ justifyContent: headerAlign, flexDirection: flexDirection, alignItems: 'center' }}
+            className={classes.toolButton}
+            tabIndex={0}>
+            <div
+              className={classNames({
+                [classes.data]: true,
+                [classes.sortActive]: sortActive,
+              })}>
+              {children}
+            </div>
+          </span>
         )}
         {!options.sort ||
           (!sort && hint && (
