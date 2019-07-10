@@ -42,6 +42,11 @@ const defaultHeadCellStyles = theme => ({
     outline: 'none',
     cursor: 'pointer',
   },
+  columnNoOrder: {
+    display: 'flex',
+    height: '10px',
+    outline: 'none',
+  },
 });
 
 class TableHeadCell extends React.Component {
@@ -93,88 +98,88 @@ class TableHeadCell extends React.Component {
     let flexDirection = align === 'right' ? 'row-reverse' : 'row';
 
     return (
-        <TableCell className={cellClass} scope={'col'} sortDirection={sortDirection}>
-          <React.Fragment>
-            {options.sort && sort ? (
-                <Tooltip
-                    title={options.textLabels.body.toolTip}
-                    placement={'bottom-start'}
-                    classes={{
-                      tooltip: classes.tooltip,
-                      popper: classes.mypopper,
-                    }}
-                    enterDelay={300}
-                    open={isSortTooltipOpen}
-                    onOpen={() =>
-                        isHintTooltipOpen
-                            ? this.setState({ isSortTooltipOpen: false })
-                            : this.setState({ isSortTooltipOpen: true })
-                    }
-                    onClose={() => this.setState({ isSortTooltipOpen: false })}>
+      <TableCell className={cellClass} scope={'col'} sortDirection={sortDirection}>
+        <React.Fragment>
+          {options.sort && sort ? (
+            <Tooltip
+              title={options.textLabels.body.toolTip}
+              placement={'bottom-start'}
+              classes={{
+                tooltip: classes.tooltip,
+                popper: classes.mypopper,
+              }}
+              enterDelay={300}
+              open={isSortTooltipOpen}
+              onOpen={() =>
+                isHintTooltipOpen
+                  ? this.setState({ isSortTooltipOpen: false })
+                  : this.setState({ isSortTooltipOpen: true })
+              }
+              onClose={() => this.setState({ isSortTooltipOpen: false })}>
               <span
-                  role="button"
-                  style={{ justifyContent: headerAlign, flexDirection: flexDirection, alignItems: 'center' }}
-                  onKeyUp={this.handleClickSort}
-                  onClick={this.handleSortClick}
-                  className={classes.toolButton}
-                  tabIndex={0}>
+                role="button"
+                style={{ justifyContent: headerAlign, flexDirection: flexDirection, alignItems: 'center' }}
+                onKeyUp={this.handleClickSort}
+                onClick={this.handleSortClick}
+                className={classes.toolButton}
+                tabIndex={0}>
                 <div
-                    className={classNames({
-                      [classes.data]: true,
-                      [classes.sortActive]: sortActive,
-                    })}>
+                  className={classNames({
+                    [classes.data]: true,
+                    [classes.sortActive]: sortActive,
+                  })}>
                   {children}
                 </div>
                 <div className={classes.sortAction}>
                   <TableSortLabel {...sortLabelProps} />
                   {hint && (
-                      <Tooltip
-                          title={hint}
-                          placement={'bottom-end'}
-                          classes={{
-                            tooltip: classes.tooltip,
-                          }}
-                          enterDelay={300}
-                          classes={{ popper: classes.mypopper }}
-                          open={isHintTooltipOpen}
-                          onOpen={() => this.setState({ isSortTooltipOpen: false, isHintTooltipOpen: true })}
-                          onClose={() => this.setState({ isHintTooltipOpen: false })}>
-                        <HelpIcon fontSize="small" />
-                      </Tooltip>
+                    <Tooltip
+                      title={hint}
+                      placement={'bottom-end'}
+                      classes={{
+                        tooltip: classes.tooltip,
+                      }}
+                      enterDelay={300}
+                      classes={{ popper: classes.mypopper }}
+                      open={isHintTooltipOpen}
+                      onOpen={() => this.setState({ isSortTooltipOpen: false, isHintTooltipOpen: true })}
+                      onClose={() => this.setState({ isHintTooltipOpen: false })}>
+                      <HelpIcon fontSize="small" />
+                    </Tooltip>
                   )}
                 </div>
               </span>
-                </Tooltip>
-            ) : (
-                <span
-                    role="button"
-                    style={{ justifyContent: headerAlign, flexDirection: flexDirection, alignItems: 'center' }}
-                    className={classes.toolButton}
-                    tabIndex={0}>
+            </Tooltip>
+          ) : (
+            <span
+              role="button"
+              style={{ justifyContent: headerAlign, flexDirection: flexDirection, alignItems: 'center' }}
+              className={classes.columnNoOrder}
+              tabIndex={0}>
               <div
-                  className={classNames({
-                    [classes.data]: true,
-                    [classes.sortActive]: sortActive,
-                  })}>
+                className={classNames({
+                  [classes.data]: true,
+                  [classes.sortActive]: sortActive,
+                })}>
                 {children}
               </div>
             </span>
-            )}
-            {!options.sort ||
+          )}
+          {!options.sort ||
             (!sort && hint && (
-                <Tooltip
-                    title={hint}
-                    placement={'bottom-end'}
-                    classes={{
-                      tooltip: classes.tooltip,
-                    }}
-                    enterDelay={300}
-                    classes={{ popper: classes.mypopper }}>
-                  <HelpIcon fontSize="small" />
-                </Tooltip>
+              <Tooltip
+                title={hint}
+                placement={'bottom-end'}
+                classes={{
+                  tooltip: classes.tooltip,
+                }}
+                enterDelay={300}
+                classes={{ popper: classes.mypopper }}>
+                <HelpIcon fontSize="small" />
+              </Tooltip>
             ))}
-          </React.Fragment>
-        </TableCell>
+        </React.Fragment>
+      </TableCell>
     );
   }
 }
