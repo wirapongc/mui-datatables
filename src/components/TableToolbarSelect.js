@@ -16,8 +16,8 @@ const defaultToolbarSelectStyles = theme => ({
     zIndex: 120,
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
+    paddingTop: 8,
+    paddingBottom: 8,
   },
   title: {
     paddingLeft: '26px',
@@ -60,18 +60,30 @@ class TableToolbarSelect extends React.Component {
   };
 
   render() {
-    const { classes, onRowsDelete, selectedRows, options, displayData } = this.props;
+    const { classes, onRowsDelete, selectedRows, options, displayData, data } = this.props;
     const textLabels = options.textLabels.selectedRows;
+
+    let text = '';
+    if (typeof textLabels.text === 'function') {
+      text = textLabels.text(selectedRows.data.length);
+    } else {
+      text = `${selectedRows.data.length} ${textLabels.text}`;
+    }
+
+    const _selectedRows = selectedRows;
+    _selectedRows.data.forEach(item => {
+      item.json = data[item.dataIndex];
+    });
 
     return (
       <Paper className={classes.root}>
         <div>
           <Typography variant="subtitle1" className={classes.title}>
-            {selectedRows.data.length} {textLabels.text}
+            {text}
           </Typography>
         </div>
         {options.customToolbarSelect ? (
-          options.customToolbarSelect(selectedRows, displayData, this.handleCustomSelectedRows)
+          options.customToolbarSelect(_selectedRows, displayData, this.handleCustomSelectedRows)
         ) : (
           <Tooltip title={textLabels.delete}>
             <IconButton className={classes.iconButton} onClick={onRowsDelete} aria-label={textLabels.deleteAria}>

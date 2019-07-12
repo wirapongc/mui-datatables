@@ -415,11 +415,13 @@ class MUIDataTable extends React.Component {
     let sortDirection = null;
 
     const data = status === TABLE_LOAD.INITIAL ? this.transformData(columns, props.data) : props.data;
+    const rowDataP = props.data;
     const searchText = status === TABLE_LOAD.INITIAL ? options.searchText : null;
 
     columns.forEach((column, colIndex) => {
       for (let rowIndex = 0; rowIndex < data.length; rowIndex++) {
         let value = status === TABLE_LOAD.INITIAL ? data[rowIndex][colIndex] : data[rowIndex].data[colIndex];
+        let rowData = status === TABLE_LOAD.INITIAL ? rowDataP[rowIndex] : rowDataP[rowIndex].data;
 
         if (typeof tableData[rowIndex] === 'undefined') {
           tableData.push({
@@ -429,7 +431,10 @@ class MUIDataTable extends React.Component {
         }
 
         if (typeof column.customBodyRender === 'function') {
-          const tableMeta = this.getTableMeta(rowIndex, colIndex, value, column, [], this.state);
+          const tableMeta = this.getTableMeta(rowIndex, colIndex, data[rowIndex], column, [], this.state);
+          if (!value) {
+            value = rowData;
+          }
           const funcResult = column.customBodyRender(value, tableMeta);
 
           if (React.isValidElement(funcResult) && funcResult.props.value) {
@@ -539,6 +544,9 @@ class MUIDataTable extends React.Component {
           searchText: searchText,
         });
 
+        if (!columnValue) {
+          columnValue = this.props.data[rowIndex];
+        }
         const funcResult = column.customBodyRender(
           columnValue,
           tableMeta,
@@ -1110,6 +1118,7 @@ class MUIDataTable extends React.Component {
         {selectedRows.data.length ? (
           <TableToolbarSelect
             options={this.options}
+            data={this.props.data}
             selectedRows={selectedRows}
             onRowsDelete={this.selectRowDelete}
             displayData={displayData}

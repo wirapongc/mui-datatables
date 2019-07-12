@@ -49,8 +49,13 @@ class TablePagination extends React.Component {
   };
 
   render() {
-    const { count, classes, options, rowsPerPage, page } = this.props;
+    const { count, classes, options, rowsPerPage, page: _page } = this.props;
     const textLabels = options.textLabels.pagination;
+
+    let page = _page;
+    if (page !== 0 && page >= Math.ceil(count / rowsPerPage)) {
+      page = 0;
+    }
 
     return (
       <MuiTableFooter>
