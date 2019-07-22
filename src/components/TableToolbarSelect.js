@@ -64,7 +64,9 @@ class TableToolbarSelect extends React.Component {
     const textLabels = options.textLabels.selectedRows;
 
     let text = '';
-    if (typeof textLabels.text === 'function') {
+    if (options.customSelectedRowsTitle) {
+      text = options.customSelectedRowsTitle(selectedRows.data.length, options);
+    } else if (typeof textLabels.text === 'function') {
       text = textLabels.text(selectedRows.data.length, options);
     } else {
       text = `${selectedRows.data.length} ${textLabels.text}`;
