@@ -71,7 +71,11 @@ class TablePagination extends React.Component {
             rowsPerPage={rowsPerPage}
             page={page}
             labelRowsPerPage={textLabels.rowsPerPage}
-            labelDisplayedRows={({ from, to, count }) => `${from}-${to} ${textLabels.displayRows} ${count}`}
+            labelDisplayedRows={
+              options.labelDisplayedRows
+                ? options.labelDisplayedRows
+                : ({ from, to, count }) => `${from}-${to} ${textLabels.displayRows} ${count}`
+            }
             backIconButtonProps={{
               id: 'pagination-back',
               'aria-label': textLabels.previous,
