@@ -75,6 +75,7 @@ class TableSelectCell extends React.Component {
       isRowExpanded,
       onExpand,
       isRowSelectable,
+      disabled,
       ...otherProps
     } = this.props;
 
@@ -97,6 +98,7 @@ class TableSelectCell extends React.Component {
         // only display the header checkbox for multiple selection.
         return null;
       }
+
       return (
         <Checkbox
           classes={{
@@ -104,7 +106,7 @@ class TableSelectCell extends React.Component {
             checked: classes.checked,
             disabled: classes.disabled,
           }}
-          disabled={!isRowSelectable}
+          disabled={disabled || !isRowSelectable}
           {...otherProps}
         />
       );

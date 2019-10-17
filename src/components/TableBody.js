@@ -18,6 +18,7 @@ class TableBody extends React.Component {
   static propTypes = {
     /** Data used to describe table */
     data: PropTypes.array.isRequired,
+    rawData: PropTypes.array.isRequired,
     /** Total number of data rows */
     count: PropTypes.number.isRequired,
     /** Columns used to describe table */
@@ -136,7 +137,7 @@ class TableBody extends React.Component {
   };
 
   render() {
-    const { classes, columns, toggleExpandRow, options } = this.props;
+    const { classes, columns, toggleExpandRow, options, rawData } = this.props;
     const tableRows = this.buildRows();
     const visibleColCnt = columns.filter(c => c.display === 'true').length;
 
@@ -150,13 +151,22 @@ class TableBody extends React.Component {
               return options.customRowRender(row, dataIndex, rowIndex);
             }
 
+            const checkboxProps = options.checkboxRenderProps
+              ? options.checkboxRenderProps(rawData[dataIndex], dataIndex) || {}
+              : {};
+
+            options.rowHover = false;
+
             return (
               <React.Fragment key={rowIndex}>
                 <TableBodyRow
                   {...(options.setRowProps ? options.setRowProps(row, dataIndex) : {})}
+                  rowHover={!checkboxProps.disabled}
                   options={options}
                   rowSelected={options.selectableRows !== 'none' ? this.isRowSelected(dataIndex) : false}
-                  onClick={this.handleRowClick.bind(null, row, { rowIndex, dataIndex })}
+                  onClick={
+                    !checkboxProps.disabled ? this.handleRowClick.bind(null, row, { rowIndex, dataIndex }) : undefined
+                  }
                   id={'MUIDataTableBodyRow-' + dataIndex}>
                   <TableSelectCell
                     onChange={this.handleRowSelect.bind(null, {
@@ -174,6 +184,7 @@ class TableBody extends React.Component {
                     isRowExpanded={this.isRowExpanded(dataIndex)}
                     isRowSelectable={this.isRowSelectable(dataIndex)}
                     id={'MUIDataTableSelectCell-' + dataIndex}
+                    {...checkboxProps}
                   />
                   {row.map(
                     (column, columnIndex) =>

@@ -1181,6 +1181,7 @@ class MUIDataTable extends React.Component {
             />
             <TableBody
               data={displayData}
+              rawData={this.props.data}
               count={rowCount}
               columns={columns}
               page={page}
