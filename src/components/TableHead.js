@@ -21,8 +21,8 @@ class TableHead extends React.Component {
     this.props.handleHeadUpdateRef(this.handleUpdateCheck);
   }
 
-  handleToggleColumn = index => {
-    this.props.toggleSort(index);
+  handleToggleColumn = (index, column) => {
+    this.props.toggleSort(index, column);
   };
 
   handleRowSelect = () => {
@@ -66,7 +66,7 @@ class TableHead extends React.Component {
                   ref={el => setCellRef(index + 1, findDOMNode(el))}
                   sort={column.sort}
                   sortDirection={column.sortDirection}
-                  toggleSort={this.handleToggleColumn}
+                  toggleSort={index => this.handleToggleColumn(index, column)}
                   hint={column.hint}
                   print={column.print}
                   align={column.align}

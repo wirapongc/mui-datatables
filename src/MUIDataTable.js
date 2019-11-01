@@ -2,7 +2,7 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import MuiTable from '@material-ui/core/Table';
 import classnames from 'classnames';
-import cloneDeep from 'lodash.clonedeep';
+import { cloneDeep } from 'lodash';
 import find from 'lodash.find';
 import isEqual from 'lodash.isequal';
 import isUndefined from 'lodash.isundefined';
@@ -721,10 +721,10 @@ class MUIDataTable extends React.Component {
   };
 
   getSortDirection(column) {
-    return column.sortDirection === 'asc' ? 'ascending' : 'descending';
+    return column.sortDirection === 'asc' ? 'asc' : 'desc';
   }
 
-  toggleSortColumn = index => {
+  toggleSortColumn = (index, column) => {
     this.setState(
       prevState => {
         let columns = cloneDeep(prevState.columns);
@@ -774,6 +774,7 @@ class MUIDataTable extends React.Component {
           this.options.onColumnSortChange(
             this.state.columns[index].name,
             this.getSortDirection(this.state.columns[index]),
+            column.sort,
           );
         }
       },
