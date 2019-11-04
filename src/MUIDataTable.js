@@ -672,6 +672,7 @@ class MUIDataTable extends React.Component {
   getTableMeta = (rowIndex, colIndex, rowData, columnData, tableData, curState) => {
     const { columns, data, displayData, filterData, ...tableState } = curState;
 
+    rowData = this.props.data[rowIndex];
     return {
       rowIndex: rowIndex,
       columnIndex: colIndex,
