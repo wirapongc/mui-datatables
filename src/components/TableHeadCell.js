@@ -7,6 +7,14 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles } from '@material-ui/core/styles';
 import HelpIcon from '@material-ui/icons/Help';
 
+const SVGSortIcon = props => {
+  return (
+    <svg className="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+      <path d="M10,13V11H18V13H10M10,19V17H14V19H10M10,7V5H22V7H10M6,17H8.5L5,20.5L1.5,17H4V7H1.5L5,3.5L8.5,7H6V17Z"></path>
+    </svg>
+  );
+};
+
 const defaultHeadCellStyles = theme => ({
   root: {},
   fixedHeader: {
@@ -131,6 +139,11 @@ class TableHeadCell extends React.Component {
                   {children}
                 </div>
                 <div className={classes.sortAction}>
+                  {!sortActive && (
+                    <span className={'MuiTableSortLabel-root MuiTableSortLabel-active'} style={{ paddingLeft: '4px' }}>
+                      <SVGSortIcon />
+                    </span>
+                  )}
                   <TableSortLabel {...sortLabelProps} />
                   {hint && (
                     <Tooltip
