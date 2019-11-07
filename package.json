@@ -1,6 +1,6 @@
 {
   "name": "oli-mui-datatables",
-  "version": "2.6.1-7",
+  "version": "2.6.1-8",
   "description": "Datatables for React using Material-UI",
   "main": "dist/index.js",
   "files": [
