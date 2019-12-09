@@ -966,7 +966,7 @@ class MUIDataTable extends React.Component {
               : false;
 
           let selectedRows = displayData.reduce((arr, d, i) => {
-            const selected = isRowSelectable ? isRowSelectable(displayData[i].dataIndex) : true;
+            const selected = isRowSelectable ? isRowSelectable(displayData[i].dataIndex, this.props.data[i]) : true;
             selected && arr.push({ index: i, dataIndex: displayData[i].dataIndex });
             return arr;
           }, []);
