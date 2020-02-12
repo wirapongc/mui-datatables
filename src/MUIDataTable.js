@@ -235,6 +235,22 @@ class MUIDataTable extends React.Component {
     this.setTableData(props, TABLE_LOAD.INITIAL, () => {
       this.setTableInit('tableInitialized');
     });
+    this.validateColumns(props);
+  }
+
+  validateColumns(props) {
+    const { columns } = props;
+    columns &&
+      columns.forEach((column, i) => {
+        if (
+          typeof column.customBodyRender === 'function' ||
+          (column.options && typeof column.options.customBodyRender === 'function')
+        ) {
+          if (column.name) {
+            console.error(`column ที่ใช้ customBodyRender ต้องระบุ name เป็น '' (ค่าว่าง)`, column);
+          }
+        }
+      });
   }
 
   /*
