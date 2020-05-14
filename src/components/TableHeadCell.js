@@ -101,9 +101,9 @@ class TableHeadCell extends React.Component {
       'datatables-noprint': !print,
     });
 
-    let headerAlign = align || 'flex-start';
+    let headerAlign = align === 'right' ? 'flex-end' : 'flex-start';
 
-    let flexDirection = align === 'right' ? 'row-reverse' : 'row';
+    let flexDirection = 'row';
 
     return (
       <TableCell className={cellClass} scope={'col'} sortDirection={sortDirection}>
