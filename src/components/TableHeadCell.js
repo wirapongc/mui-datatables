@@ -101,7 +101,13 @@ class TableHeadCell extends React.Component {
       'datatables-noprint': !print,
     });
 
-    let headerAlign = align === 'right' ? 'flex-end' : 'flex-start';
+    let headerAlign = align;
+
+    if (align === 'right') {
+      headerAlign = 'flex-end';
+    } else if (align === 'left') {
+      headerAlign = 'flex-start';
+    }
 
     let flexDirection = 'row';
 
